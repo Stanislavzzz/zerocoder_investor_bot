@@ -38,24 +38,20 @@ def get_historical_data(coin_id: str, currency: str = "usd", days: int = 60):
 
     prices = data.get("prices")
     volumes = data.get("total_volumes")
-    market_caps = data.get("market_caps")
-    # pprint(data)
 
     date_list = []
     price_list = []
     volume_list = []
-    market_caps_list = []
 
 
-    for price, volume, market in zip(prices, volumes, market_caps):
+    for price, volume in zip(prices, volumes):
         timestamp = price[0] / 1000
         dt = datetime.fromtimestamp(timestamp, tz=timezone.utc)
         date_list.append(dt)
         price_list.append(price[1])
         volume_list.append(volume[1])
-        market_caps_list.append(market[1])
 
-    df = pd.DataFrame({"date": date_list, "price": price_list, "volume": volume_list, "market_caps": market_caps_list})
+    df = pd.DataFrame({"date": date_list, "price": price_list, "volume": volume_list})
 
     return df
 
@@ -92,6 +88,6 @@ if __name__ == '__main__':
     # price = get_current_price(coin_id="ethereum", currency="rub")
     # print(price)
 
-    data = get_historical_data(coin_id="bitcoin", currency="rub", days=1)
+    data = get_historical_data(coin_id="bitcoin", currency="rub", days=90)
     # print(data.head(20))
     print(data.tail(20))
