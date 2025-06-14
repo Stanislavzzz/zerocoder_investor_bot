@@ -2,7 +2,7 @@ import asyncio
 from aiogram import Bot, Dispatcher
 import config
 import logging
-from handlers import common, crypto_analyze, ai_help, crypto_chart
+from handlers import common, crypto_analyze, ai_help
 
 
 async def main():
@@ -17,7 +17,6 @@ async def main():
     dp.include_router(common.router)
     dp.include_router(crypto_analyze.router)
     dp.include_router(ai_help.router)
-    dp.include_router(crypto_chart.router)
 
     await dp.start_polling(bot)
 
